@@ -1,0 +1,42 @@
+{% extends "books/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+	<h1>{% trans "All books registered for:" %} {{object.title}}</h1>
+
+	<form action="." method="GET">
+		<input type="text" name="query" placeholder="Search by author or title">
+		<select name="sort_state">
+			<option value="all">All</option>
+			<option value="active">Active</option>
+			<option value="unactive">Unactive</option>
+		</select>
+		<select name="sort_fields">
+			<option value="rating">Rating</option>
+			<option value="oldest">Oldest</option>
+			<option value="newest">Newest</option>
+		</select>
+		<input type="submit">
+	</form>
+
+	
+
+	{% if books %}
+		<ul>
+			{% for book in books %}
+				<li><a href="{{book.get_absolute_url}}">{{book.title}}</a></li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+	<p></p>
+	{% if error_message %}
+		{{error_message}}
+	{% else %}
+		{% if is_valid %}
+			{% with books.count as n_books %}
+				<p>{{n_books}} match{{n_books|pluralize:'es'}} for "{{request.GET.query}}"</p>
+			{% endwith %}
+		{% endif %}
+	{% endif %}
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends "books/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<h1>{{object.title}} has {{object.n_books}} book{{object.n_books|pluralize}}!</h1>
+<a href="{{request.path}}all">See all</a>
+<ul>
+{% for book in object.books.all %}
+	<li><a href="{{book.get_absolute_url}}">{{book.title}}</a></li>
+{% endfor %}
+</ul>
+
+{# <h2>{% trans "Take a look at the votations for this week: " %}<a href="{{votations.get_absolute_url}}">Votations</a></h2> #}
+
+
+{% endblock content %}

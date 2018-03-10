@@ -1,0 +1,31 @@
+{% extends "books/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+	<h1>{% trans "Reviews for" %} {{object.title}}</h1>
+	
+	{% for review in reviews %}
+		<b>{{review.title}}, <span>{{review.rating}} stars</span></b>
+		<p>		{{review.text}}</p>
+		{% empty %}
+		<p>{% trans "There are no reviews for this book yet. Hurry up and be the first one!" %}</p>
+	{% endfor %}
+
+
+	{% if message %}
+		<b>{{message}}</b>
+	
+	{% else %}
+		{% if not object in request.user.profile.books_reviewed.all %}
+			<h2>{% trans "Share with the community your personal experience with this book" %}</h2>
+			{% include "form.html" with form=form %}
+		{% else %}
+			<b>{% trans "You've already posted your review!" %}</b>
+		{% endif %}
+	{% endif %}
+		
+	
+	
+{% endblock content %}
+

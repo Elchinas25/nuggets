@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GoldenNuggets!</title>
+	{% block head %}
+	{% endblock head %}
+</head>
+<body>
+	<nav>
+		<a href="{% url "books:categories" %}">categories</a>
+	</nav>
+	{% block content %}
+	{% endblock content %}
+</body>
+</html>

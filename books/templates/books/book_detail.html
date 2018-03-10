@@ -1,0 +1,39 @@
+{% extends "books/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<h1>{{object.title}}  <small>{{object.rating_model.average}}</small></h1>
+<p><b>{% trans "Author" %}:</b> {{object.author}}</p>
+<p>
+	{% trans "Category" %}:
+	{% for cat in object.category.all %}
+	<a href="{{cat.get_absolute_url}}">{{cat.title}}</a>
+	{% endfor %}
+</p>
+
+
+{% if not object.rating_model in request.user.profile.books_rated.all %}
+	<p>Wanna rate this book?</p>
+	<form method="POST" action="."> {% csrf_token %}
+		<input type="text" name="rating_form">
+		<input type="submit">
+	</form>
+	{% if message %}
+		<b>{{message}}</b>
+	{% endif %}
+{% else %}
+	<b>You've already rated this book!</b>
+{% endif %}
+
+<p>{% trans "See " %} <a href="{{request.path}}reviews/">{{book.n_reviews}} review{{book.n_reviews|pluralize}}</a></p>
+
+
+{% if object.image %}
+<img src="{{object.image.url}}">
+{% endif %}
+
+
+
+
+{% endblock content %}
