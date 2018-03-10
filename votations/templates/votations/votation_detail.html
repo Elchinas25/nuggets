@@ -1,0 +1,24 @@
+{% extends "votations/base.html" %}
+{% load votation_tags %}
+{% load i18n %}
+
+
+
+{% block content %}
+
+<h1>{{object.category.title}} votations!</h1>
+<h2>{{object.get_position_display}} Votations for: {{object.get_month_display}}</h2>
+
+{% if started %}
+	<h3>Votations ahve already started!</h3>
+{% else %}
+	<h3>Votations haven't started yet!</h3>
+	<p>Votations start every Friday at 20:00. <b>{% get_time_left request.user %}</b></p>
+{% endif %}
+
+
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load votation_tags %}
+
+{% block content %}
+	
+{% get_time_left request.user category  %}	
+{% endblock content %}
